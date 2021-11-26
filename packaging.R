@@ -1,6 +1,7 @@
 #=====================================================================================
-# BUILD THE PACKAGE
+# Create R package
 #=====================================================================================
+
 # This script creates a simple R package with vignette and unit tests.
 
 # WORKFLOW
