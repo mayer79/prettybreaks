@@ -13,7 +13,8 @@
 #    its main function.
 # 4) Edit cran-comments, NEWS, README, packaging and the content of the folders
 #    tests/ and vignette/ to fit your package.
-# 5) Run this script
+# 5) Run this script. It will generate .zip and a .tar.gz package that can be installed.
+# 6) To safely get a vignette locally, knit the vignette rmd file.
 
 library(usethis)
 library(devtools)
@@ -64,12 +65,13 @@ use_build_ignore(c(".git", ".gitignore", "packaging.R", "cran-comments.md",
                    "doc", "Meta", "[.]Rproj$", ".Rproj.user"), escape = FALSE)
 
 # Finish package building
-document()                # Create documentation from Roxygen tags (@param etc.)
-test()                    # Run own unit tests
-build_vignettes()         # Build vignete
-check(vignettes = FALSE)  # Run package checks
-build()                   # Create package in parent(!) folder
-install()                 # Install it
+document()                  # Create documentation from Roxygen tags (@param etc.)
+test()                      # Run own unit tests
+build_vignettes()           # Build vignete
+check(vignettes = FALSE)    # Run package checks
+build()                     # Create package in parent(!) folder
+build(binary = TRUE)        # Create package zip
+install()                   # Install it
 
 #======================================
 # Run if package shoud go to CRAN
