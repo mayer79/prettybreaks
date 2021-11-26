@@ -1,0 +1,10 @@
+.git
+.gitignore
+packaging.R
+cran-comments.md
+doc
+Meta
+[.]Rproj$
+.Rproj.user
+^doc$
+^Meta$

@@ -64,19 +64,21 @@ use_build_ignore(c(".git", ".gitignore", "packaging.R", "cran-comments.md",
                    "doc", "Meta", "[.]Rproj$", ".Rproj.user"), escape = FALSE)
 
 # Finish package building
-document()            # Create documentation from Roxygen tags (@param etc.)
-test()                # Run own unit tests
-build_vignettes()     # Build vignete
-check(manual = TRUE)  # Run package checks
-build()               # Create package in parent(!) folder
-install()             # Install it
+document()                # Create documentation from Roxygen tags (@param etc.)
+test()                    # Run own unit tests
+build_vignettes()         # Build vignete
+check(vignettes = FALSE)  # Run package checks
+build()                   # Create package in parent(!) folder
+install()                 # Install it
 
 #======================================
 # Run if package shoud go to CRAN
 #======================================
 
-check_win_devel()
-check_rhub()
+if (FALSE) {
+  check_win_devel()
+  check_rhub()
 
-# Wait until above checks are done, then submit to CRAN
-devtools::release()
+  # Wait until above checks are done, then submit to CRAN
+  devtools::release()
+}
