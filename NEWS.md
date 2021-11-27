@@ -1,3 +1,3 @@
-# splitTools 0.0.0
+# prettybreaks 0.0.1
 
 This is the initial release.

@@ -1,7 +1,8 @@
 #' Pretty Breakpoints
 #'
 #' Classic algorithm to create pretty breaks from a numeric vector, see reference. In contrast to \code{base::pretty()}, this function works for different number systems and with different notion of "pretty" numbers.
-# #' @importFrom stats ave, aggregate
+# #' @importFrom stats aggregate, ave  # Import some functions from a package
+# #' @import ggplot2                   # Import package if many functions needed
 #' @param x Numpy array of size >= 2. Used to derive breaks.
 #' @param n Approximate number of intervals between breaks. Defaults to 5.
 #' @param p List of basic rounding numbers in [1, base), e.g., \code{p = 10/7} will lead to multiples of 1/7, 10/7, 100/7 etc, whatever fits best to \code{x} and \code{n}. Defaults to \code{c(1, 2, 5)}.
