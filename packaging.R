@@ -49,8 +49,8 @@ use_description(
     LazyData = NULL,            # change to TRUE if there is data in your package
     Maintainer = "Michael Mayer <mayermichael79@gmail.com>"),
   roxygen = TRUE)
-use_gpl_license(2)
-# use_github_links() # use this if this project is already linked to a github repo
+# use_gpl_license(2) # use this if this project is public(!)
+# use_github_links() # use this if this project is public(!) and is on github
 
 # For each package imported in your functions, add a "use_package" line
 # use_package("stats", "Imports")
@@ -79,7 +79,7 @@ build()                              # Create package in parent(!) folder
 build(binary = TRUE)                 # Create package zip
 install()                            # Install it
 
-# Run only if package should go to CRAN
+# Run only if package is public(!) and should go to CRAN
 if (FALSE) {
   check_win_devel()
   check_rhub()
