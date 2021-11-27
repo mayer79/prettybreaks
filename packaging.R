@@ -6,7 +6,7 @@
 #=====================================================================================
 
 # Firstly, clean up files and folders that are generated later
-for (f in c(".Rbuildignore", "DESCRIPTION", "NAMESPACE"))
+for (f in c(".Rbuildignore", "DESCRIPTION", "NAMESPACE", "LICENSE.md"))
   if (file.exists(f)) file.remove(f)
 for (f in c("doc", "Meta", "man"))
   if (dir.exists(f)) unlink(f, recursive = TRUE)
@@ -50,7 +50,7 @@ use_description(
     LazyData = NULL,            # change to TRUE if there is data in your package
     Maintainer = "Michael Mayer <mayermichael79@gmail.com>"),
   roxygen = TRUE)
-# use_gpl_license(2) # use this if this project is public(!)
+use_gpl_license(2)
 # use_github_links() # use this if this project is public(!) and is on github
 
 # For each package imported in your functions, add a "use_package" line
