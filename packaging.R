@@ -12,7 +12,7 @@ for (f in c("doc", "Meta", "man"))
   if (dir.exists(f)) unlink(f, recursive = TRUE)
 
 # WORKFLOW (without clicking any buttons...)
-# 0) Rename main folder to YOUR package name
+# 0) Rename main folder to YOUR package name.
 # 1) Delete folders "tests" and/or "vignettes" if you don't need them.
 # 2) Replace word "prettybreaks" by your package name in all files and file names
 #    (NEWS.md, packaging,R, *.Rproj, README.md, tests/..., vignettes/....
@@ -21,6 +21,7 @@ for (f in c("doc", "Meta", "man"))
 #    its main function.
 # 4) Edit cran-comments.md, NEWS.md, README.md, packaging.R
 #    and the content of the folders tests/ and vignette/ to fit your package.
+#    Restart RStudio.
 # 5) Run this script. It will generate a zip and tar.gz package that can be distributed.
 #    The vignette is not part of the package but can be found in doc/
 
@@ -73,7 +74,7 @@ use_build_ignore(ignore, escape = FALSE)
 # Finish package building
 document()                           # Create documentation from Roxygen tags (@param etc.)
 if (has_tests) test()                # Run unit tests
-if (has_vignette) build_vignettes()  # Build vignette (it is put into "doc" folder)
+if (has_vignette) build_vignettes()  # Build vignette (it will be put into "doc/")
 check(vignettes = FALSE)             # Run package checks
 build()                              # Create package in parent(!) folder
 build(binary = TRUE)                 # Create package zip
