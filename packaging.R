@@ -5,27 +5,34 @@
 # Much more info on https://r-pkgs.org/
 #=====================================================================================
 
-# Firstly, clean up files and folders that are generated later
-for (f in c(".Rbuildignore", "DESCRIPTION", "NAMESPACE", "LICENSE.md"))
+# Firstly, clean up some files and folders. They will be generated later.
+for (f in c(".Rbuildignore", "DESCRIPTION", "NAMESPACE", "LICENSE.md", "R/utils-pipe.R"))
   if (file.exists(f)) file.remove(f)
 for (f in c("doc", "Meta", "man"))
   if (dir.exists(f)) unlink(f, recursive = TRUE)
 
 # WORKFLOW (without clicking any buttons...)
 # 0) Rename main folder to YOUR package name.
-# 1) Delete folders "tests" and/or "vignettes" if you don't need them.
-# 2) Replace word "prettybreaks" by your package name in all files and file names
-#    (NEWS.md, packaging,R, *.Rproj, README.md, tests/..., vignettes/....
-# 3) Put main functions of your package into folder "R" as [function_name].R each.
-#    Helper functions can be added (undocumented) to a "utils.R" script or below
-#    its main function.
-# 4) Edit cran-comments.md, NEWS.md, README.md, packaging.R
-#    and the content of the folders tests/ and vignette/ to fit your package.
+# 1) If you don't need them, delete folders "tests" and/or "vignettes".
+# 2) Replace word "prettybreaks" in all files and file names by your package name
+#    (NEWS.md, packaging,R, *.Rproj, README.md, tests/, vignettes/.
+# 3) Put user relevant functions of your package into folder "R" as [function_name].R each.
+#    Helper functions can be added (undocumented) to a "utils.R" script
+#    or in any of the existing scripts in R/.
+# 4) Edit NEWS.md, README.md, packaging.R and the content of the folders
+#    tests/ and vignette/ to describe your package.
+#    If the package should go to CRAN, also edit cran-comments.md.
 #    Restart RStudio.
 # 5) Run this script. It will generate a zip and tar.gz package that can be distributed.
 #    The vignette is not part of the package but can be found in doc/
 
-# Should something go wrong, fix the problems and rerun this script.
+# NOTES
+# - Should something go wrong, fix the problems and rerun this script.
+# - In your R-scripts, never load a library or run "source".
+# - In your R-scripts, the use of "packagename::function" is fine, while
+#   you can't use internal functions like "packagename:::function".
+# - Keep dependency footprint small.
+# - If the package should go to CRAN, no warnings or notes should be left.
 
 library(usethis)
 library(devtools)
@@ -50,11 +57,12 @@ use_description(
     LazyData = NULL,            # change to TRUE if there is data in your package
     Maintainer = "Michael Mayer <mayermichael79@gmail.com>"),
   roxygen = TRUE)
-use_gpl_license(2)
+use_gpl_license(2)  # To avoid a warning. For private packages, this is a bit strange.
 # use_github_links() # use this if this project is public(!) and is on github
 
-# For each package imported in your functions, add a "use_package" line
-# use_package("stats", "Imports")
+# List required external packages (one row per package)
+# use_package("stats", "Imports")  # If your code uses functions from "stats"
+# use_pipe()                       # if your code uses the pipe operator %>%
 
 # Packages used for unit tests and/or vignettes
 if (has_tests) use_package("testthat", "Suggests")
@@ -75,10 +83,10 @@ use_build_ignore(ignore, escape = FALSE)
 document()                           # Create documentation from Roxygen tags (@param etc.)
 if (has_tests) test()                # Run unit tests
 if (has_vignette) build_vignettes()  # Build vignette (it will be put into "doc/")
-check(vignettes = FALSE)             # Run package checks
-build()                              # Create package in parent(!) folder
-build(binary = TRUE)                 # Create package zip
-install()                            # Install it
+check(vignettes = FALSE)             # Run package checks. No errors or warnings should be left.
+build()                              # Create tag.gz package in parent(!) folder
+build(binary = TRUE)                 # Create zip (for useres without RTools)
+install()                            # Install package on your machine
 
 # Run only if package is public(!) and should go to CRAN
 if (FALSE) {
@@ -89,3 +97,4 @@ if (FALSE) {
   # then submit to CRAN
   devtools::release()
 }
+
