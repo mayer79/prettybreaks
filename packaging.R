@@ -1,30 +1,24 @@
-#=====================================================================================
+#===============================================================================
 # Create R package
 #
 # This script creates a simple R package with optional vignette and unit tests.
 # Much more info on https://r-pkgs.org/
-#=====================================================================================
-
-# Clean up some files and folders. They will be generated later.
-for (f in c(".Rbuildignore", "DESCRIPTION", "NAMESPACE", "LICENSE.md", "R/utils-pipe.R"))
-  if (file.exists(f)) file.remove(f)
-for (f in c("doc", "Meta", "man"))
-  if (dir.exists(f)) unlink(f, recursive = TRUE)
+#===============================================================================
 
 # WORKFLOW FOR CREATING A NEW PACKAGE
 # 1) Clone this template from https://github.com/mayer79/prettybreaks.
 # 2) Rename main folder to YOUR package name, remove folder ".git" and
 #    create a fresh git tracking (in RStudio or by running "git init").
 # 3) If you don't need them, delete folders "tests" and/or "vignettes".
-# 4) Replace word "prettybreaks" in all files and file names by your package name
-#    (NEWS.md, packaging,R, *.Rproj, README.md, tests/, vignettes/.
-# 5) Put user visible functions of your package into folder "R" as [function_name].R each.
-#    Helper functions can be added (undocumented) to a "utils.R" script
-#    or in any of the existing scripts in folder "R".
-# 6) Edit NEWS.md, README.md, packaging.R and the content of the optional folders
-#    "tests" and "vignette" to describe your package.
+# 4) Replace word "prettybreaks" in NEWS.md, packaging.R, *.Rproj,
+#    README.md, tests/, vignettes/ by your package name.
+# 5) Put user visible functions of your package into folder "R" as
+#    [function_name].R each. Helper functions can be added (undocumented) to
+#    "R/utils.R" or in any of the existing scripts in folder "R".
+# 6) Edit NEWS.md, README.md, packaging.R and the content of the optional
+#    folders "tests" and "vignette" to describe your package.
 #    If the package should go to CRAN, edit file "cran-comments.md" as well.
-# 7) Restart RStudio and run this script. It will generate a zip and tar.gz package.
+# 7) Restart RStudio and run this script. It will make a zip and tar.gz package.
 #    The vignette is not part of the package but can be found in folder "doc".
 
 # WORKFLOW TO UPDATE PACKAGE TO NEW VERSION
@@ -34,9 +28,9 @@ for (f in c("doc", "Meta", "man"))
 
 # NOTES
 # - Should something go wrong, fix the problems and rerun this script.
-# - In your R-scripts, never load a library or run "source".
-# - In your R-scripts, the use of "packagename::function" is fine, while
-#   you can't use internal functions like "packagename:::function".
+# - In your scripts in folder "R", never load a library or run "source".
+#   The use of "packagename::function" is fine, while you can't use
+#   internal functions like "packagename:::function".
 # - Keep the dependency footprint small, i.e., don't use unnecessary packages.
 # - If the package should go to CRAN, no warnings/notes should appear in check().
 # - Git tracking is recommended, but not strictly required.
@@ -49,6 +43,12 @@ library(rmarkdown)
 
 has_tests <- dir.exists("tests")
 has_vignette <- dir.exists("vignettes")
+
+# Clean up some files and folders. They will be generated later.
+for (f in c(".Rbuildignore", "DESCRIPTION", "NAMESPACE", "LICENSE.md", "R/utils-pipe.R"))
+  if (file.exists(f)) file.remove(f)
+for (f in c("doc", "Meta", "man"))
+  if (dir.exists(f)) unlink(f, recursive = TRUE)
 
 # Create description file
 use_description(
